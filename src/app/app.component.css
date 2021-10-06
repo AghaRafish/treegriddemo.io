@@ -1,0 +1,19 @@
+@import 'https://cdn.syncfusion.com/ej2/17.3.27/material.css';
+.e-grid td.e-active {
+    background: pink;
+    color: #000;
+  }
+.e-treegrid .e-rowcell.customcss {
+    background-color: #ecedee;
+    font-family: 'Bell MT';
+    color: 'red';
+    font-size: '20px';
+    
+}
+
+.e-treegrid .e-headercell.customcss {
+    background-color: #2382c3;
+    color: white;
+    font-family: 'Bell MT';
+    font-size: '20px';
+}

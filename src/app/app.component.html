@@ -1,0 +1,477 @@
+<div class="row">
+    <div class="grid-freezeprop">
+        <div class="grid-freezecol">
+            <div class="grid-freezecol">
+                <span>
+                    Column
+                </span>
+            </div>
+            <div class="grid-freezecol">
+                <ejs-dropdownlist id='column' #columndropdown index='7' [dataSource]='columnData'
+                                  (change)='columnChange($event)' [fields]='fields'></ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="grid-freezecol">
+            <div class="grid-freezecol">
+                <span>
+                    Freeze Direction
+                </span>
+            </div>
+            <div class="grid-freezecol">
+                <ejs-dropdownlist id='direction' #directiondropdown index='0' [dataSource]='directionData'
+                                  (change)='directionChange($event)' [fields]='fields'></ejs-dropdownlist>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" id="treeGridDiv">
+        <ejs-treegrid id="treegrid" #treegrid
+                      [dataSource]="data"
+                      [treeColumnIndex]=1
+                      [editSettings]='editSettings'
+                      [selectionSettings]='selectionOptions'
+                      [allowFiltering]="FilterColumns"
+                      allowSorting='true'
+                      [sortSettings]='sortSettings'
+                      childMapping="subtasks"
+                      [pageSettings]='pageSettings'
+                      allowPaging='true'
+                      [toolbar]='toolbar'
+                      allowTextWrap="true"
+                      [allowResizing]="true"
+                      allowReordering="true"
+                      [allowRowDragAndDrop]='true'
+                      [filterSettings]="filterSettings"
+                      (actionComplete)="actionComplete($event)"
+                      [contextMenuItems]='contextMenuItems'
+                      (contextMenuClick)="contextMenuClick($event)"
+                      [allowExcelExport]='true'
+                      [allowPdfExport]='true'
+                      [showColumnChooser]='true'>
+            <e-columns>
+                <e-column *ngFor="let col of lstTreemodal"
+                          field="{{col.field}}"
+                          headerText="{{col.headerText}}"
+                          textAlign="{{col.textAlign}}"
+                          format="{{col.format}}"
+                          width="{{col.width}}"
+                          editType="{{col.editTypes}}"
+                          draggable="true"
+                          freeze="{{col.freeze}}"
+                          filter="{{col.filter}}"
+                          [customAttributes]='customAttributes'></e-column>
+            </e-columns>
+        </ejs-treegrid>
+        <ejs-dialog #alertDialog [buttons]='dlgButtons' [header]='header' [animationSettings]='animationSettings'
+                    [content]='content' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' [visible]='visible'>
+        </ejs-dialog>
+    </div>
+    <div *ngIf="MultiSortColumns" class="col-lg-4 property-section text-center">
+        <div class="property-panel-header mt-3 mb-3">
+            <h3>
+                Multi sorting
+            </h3>
+        </div>
+        <div class="property-panel-section">
+            <table id="property" class="property-panel-table" title="Properties" style="width: 100%">
+                <tr>
+                    <td style="width: 70%">
+                        <div>
+                            Task ID
+                        </div>
+                    </td>
+                    <td style="width: 30%;padding:10px 10px 10px 0px">
+                        <div class="col-md-6">
+                            <ejs-checkbox #taskID [checked]="true" (change)="onClick1($event)"></ejs-checkbox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 70%">
+                        <div>
+                            Task Name
+                        </div>
+                    </td>
+                    <td style="width: 30%;padding:10px 10px 10px 0px">
+                        <div class="col-md-6">
+                            <ejs-checkbox #taskName [checked]="true" (change)="onClick2($event)"></ejs-checkbox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 70%">
+                        <div>
+                            Start Date
+                        </div>
+                    </td>
+                    <td style="width: 30%; padding:10px 10px 10px 0px">
+                        <div class="col-md-6">
+                            <ejs-checkbox #startDate (change)="onClick3($event)"></ejs-checkbox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 70%">
+                        <div>
+                            Duration
+                        </div>
+                    </td>
+                    <td style="width: 30%; padding:10px 10px 10px 0px">
+                        <div class="col-md-6">
+                            <ejs-checkbox #duration (change)="onClick4($event)"></ejs-checkbox>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <!-- <div  class="col-lg-4 property-section text-center">
+                <div class="property-panel-header mt-3 mb-3"><h3>
+                    Reorder columns
+                  </h3></div>
+                <div class="property-panel-section">
+                    <table id="property" class="property-panel-table" title="Properties" style="width: 100%">
+                        <tr style="height: 50px">
+                            <td style="width: 30%">
+                                <div style="padding-top: 10px">Column</div>
+                            </td>
+                            <td style="width: 30%;padding-right: 10px">
+                                <div>
+                                        <ejs-dropdownlist #dropdown1 id='ddlelement' width= '120px' [dataSource]='d1data' [fields]='ddlfields' value='taskID' (change)="onChange($event)" ></ejs-dropdownlist>
+                                    </div>
+                            </td>
+                        </tr>
+                        <tr style="height: 50px">
+                            <td style="width: 30%">
+                                <div>Column Index</div>
+                            </td>
+                            <td style="width: 30%;padding: 10px 10px 10px 0px">
+                                <div>
+                                        <ejs-dropdownlist #dropdown2 id='element' width= '120px' [dataSource]='d2data' [fields]='fields' value='0'  (change)="change($event)" ></ejs-dropdownlist>
+                                    </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    </div> -->
+    <div *ngIf="ShowHideColumns" class="col-lg-4 property-section text-center">
+        <div class="property-panel-header mt-3 mb-3">
+            <h3>
+                Show/Hide columns
+            </h3>
+        </div>
+        <div class="property-panel-section">
+            <table id="property" class="property-panel-table" title="Properties" style="width: 100%">
+                <tr>
+                    <td style="width: 30%">
+                        <div>Column</div>
+                    </td>
+                    <td style="width: 70%;padding-right: 10px">
+                        <div id='columnddl'>
+                            <ejs-dropdownlist #dropdown3 id='ddlelement' width='120px' [dataSource]='d3data' [fields]='ddlfields' value='taskID' (change)="ShowHide($event)"></ejs-dropdownlist>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 30%;padding-top: 10px">
+                        <div>
+                            <button ejs-button #button1 cssClass="btn btn-default" content="HIDE" id="hide" (click)="onClicked()"></button>
+                        </div>
+                    </td>
+                    <td style="width: 70%;padding-top: 10px;padding-left: 7px">
+                        <div>
+                            <button ejs-button #button2 cssClass="btn btn-default" content="SHOW" id="show" (click)="clicked($event)"></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="" style="padding-top: 10px">
+                Hidden Columns
+            </div>
+            <div>
+                <textarea id="hiddencolumns" style="resize: none;height:65px;background-color: #fff; padding: 6px"
+                          class="form-control" readonly="readonly"></textarea>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="StyleColumns" class="col-md-4 property-section text-center" id="styleColumnsConfig">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="property-panel-header mt-3 mb-3">
+                    <h3>
+                        Column Style
+                    </h3>
+                </div>
+                <div class="property-panel-section">
+                    <table id="property" class="property-panel-table" title="Properties" style="width: 100%">
+                        <tr>
+                            <td style="width: 20%;text-align:left">
+                                Column
+                            </td>
+                            <td style="width: 80%;text-align: left">
+                                <div id='columnddl'>
+                                    <ejs-dropdownlist #dropdown1 id='ddlColumn' width='120px' [dataSource]='d3data' [fields]='ddlfields' value='{{selectedColumnHeader}}' (change)="columnHeaderChange($event)"></ejs-dropdownlist>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%;text-align:left">
+                                Column data type
+                            </td>
+                            <td style="width: 80%;text-align: left">
+                                <div id='columndataTypeddl'>
+                                    <ejs-dropdownlist #dropdown2 id='ddldataTypeColumn' width='120px' [dataSource]='d5ColumnDataTypes' [fields]='ddlfields' value='{{defaultDatatypeSelected}}' (change)="changeColumnType($event)"></ejs-dropdownlist>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;text-align: left">
+                                Minimum column width
+                            </td>
+                            <td style="width: 50%;text-align: left">
+                                <div id='minimumColumnWidth'>
+                                    <!--<ejs-dropdownlist #dropdown3 id='ddlelement' width='120px' [dataSource]='d3data' [fields]='ddlfields' value='taskID' (change)="ShowHide($event)"></ejs-dropdownlist>-->
+                                    <ejs-numerictextbox #minimumWidthInput width='120px' format="n2" (focus)="minWidthfocusIn($event.target)" (blur)="minWidthfocusOut($event.target)" id="minColumnWidth" min="0" value="{{ minWidthofSelectedColumn}}" placeholder=''></ejs-numerictextbox>
+                                    <!--<input class="e-input" name='input'  width="120" type="number" (focus)="focusIn($event.target)"
+                                    placeholder="" value="12" (blur)="focusOut($event.target)" />-->
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%;text-align: left">
+                                Font size
+                            </td>
+                            <td style="width: 80%;text-align: left">
+                                <div id='fontSize'>
+                                    <!--<ejs-dropdownlist #dropdown3 id='ddlelement' width='120px' [dataSource]='d3data' [fields]='ddlfields' value='taskID' (change)="ShowHide($event)"></ejs-dropdownlist>-->
+                                    <ejs-numerictextbox #fontsize width='120px' id="fontSize" value="{{ defaultcellFontSize}}" placeholder='' (blur)="changeFontSize($event.target)"  ></ejs-numerictextbox>
+                                    <!--<input class="e-input" name='input'  width='120' type="number" (focus)="focusIn($event.target)"
+                                    placeholder="" value="12" (blur)="focusOut($event.target)" />-->
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%;text-align: left">
+                                Font color
+                            </td>
+                            <td style="width: 80%;text-align: left">
+                                <div id='fontColor'>
+                                    <input ejs-colorpicker #fontColor type="color" id="bgcolorpicker" value="{{defaultcellColor}}" (select)="changefontColor($event)" />
+                                    
+                                    <!--<input type="color" id="ftcolor-picker">-->
+                                    <!--<ejs-dropdownlist #dropdown3 id='ddlelement' width='120px' [dataSource]='d3data' [fields]='ddlfields' value='taskID' (change)="ShowHide($event)"></ejs-dropdownlist>-->
+                                    <!--<ejs-numerictextbox #numeric="" id="fontColor" width='120px' placeholder=''></ejs-numerictextbox>-->
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%;text-align: left">
+                                Background color
+                            </td>
+                            <td style="width: 80%;text-align: left">
+                                <div id='backgroundColor'>
+                                    <input ejs-colorpicker #BgColor type="color" id="bgcolorpicker" value="{{defaultcellBgColor}}" (select)="changeBgColor($event)"/>
+                                    <!--<ejs-dropdownlist #dropdown3 id='ddlelement' width='120px' [dataSource]='d3data' [fields]='ddlfields' value='taskID' (change)="ShowHide($event)"></ejs-dropdownlist>-->
+                                    <!--<ejs-numerictextbox #numeric="" id="backgroundColor" width='120px' placeholder=''></ejs-numerictextbox>-->
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%;text-align: left">
+                                Alignment
+                            </td>
+                            <td style="width: 80%; text-align: left">
+                                <div id='columnddl'>
+                                    <ejs-dropdownlist #dropdown3 id='ddlAlignment' width='120px' [dataSource]='d4Allignment' [fields]='ddlfields' value='{{defaultAlignment}}' (change)="changeAlignment($event)"></ejs-dropdownlist>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20%; text-align: left">
+                                Text Wrap
+                            </td>
+                            <td style="width: 80%; text-align: left">
+                                <ejs-checkbox #textWrapCheckbox label=''></ejs-checkbox>
+                                <!--<div id='columnddl'>
+                                    <ejs-dropdownlist #dropdown3 id='ddlTextWrap' width='120px' [dataSource]='d3data' [fields]='ddlfields' value='taskID' (change)="ShowHide($event)"></ejs-dropdownlist>
+                                </div>-->
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td style="width: 30%; text-align: left">
+                                <div>
+                                    <button ejs-button #button1 cssClass="btn btn-default" content="HIDE" id="hide" (click)="onClicked()"></button>
+                                </div>
+                            </td>
+                            <td style="width: 70%;padding-top: 10px;padding-left: 7px">
+                                <div>
+                                    <button ejs-button #button2 cssClass="btn btn-default" content="SHOW" id="show" (click)="clicked($event)"></button>
+                                </div>
+                            </td>
+                        </tr>-->
+                    </table>
+                    <!--<div class="" style="padding-top: 10px">
+                        Hidden Columns
+                    </div>
+                    <div>
+                        <textarea id="hiddencolumns" style="resize: none;height:65px;background-color: #fff; padding: 6px"
+                                  class="form-control" readonly="readonly"></textarea>
+                    </div>-->
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+
+    </div>
+</div>
+<!-- <div class="row">
+<div class="col-lg-4 property-section text-center">
+    <div class="property-panel-header mt-3 mb-3"><h3>
+        Multi sorting
+      </h3></div>
+  <div class="property-panel-section">
+      <table id="property" class="property-panel-table" title="Properties" style="width: 100%">
+          <tr>
+              <td style="width: 70%">
+                  <div>
+                      Task ID
+                  </div>
+              </td>
+              <td style="width: 30%;padding:10px 10px 10px 0px">
+                  <div class="col-md-6">
+                      <ejs-checkbox #taskID [checked]="true" (change)="onClick1($event)" ></ejs-checkbox>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 70%">
+                  <div>
+                      Task Name
+                  </div>
+              </td>
+              <td style="width: 30%;padding:10px 10px 10px 0px">
+                  <div class="col-md-6">
+                          <ejs-checkbox  #taskName [checked]="true" (change)="onClick2($event)" ></ejs-checkbox>
+                      </div>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 70%">
+                  <div>
+                      Start Date
+                  </div>
+              </td>
+              <td style="width: 30%; padding:10px 10px 10px 0px">
+                  <div class="col-md-6">
+                          <ejs-checkbox  #startDate  (change)="onClick3($event)" ></ejs-checkbox>
+                      </div>
+              </td>
+          </tr>
+          <tr>
+              <td style="width: 70%">
+                  <div>
+                      Duration
+                  </div>
+              </td>
+              <td style="width: 30%; padding:10px 10px 10px 0px">
+                  <div class="col-md-6">
+                          <ejs-checkbox  #duration  (change)="onClick4($event)" ></ejs-checkbox>
+                      </div>
+              </td>
+          </tr>
+
+      </table>
+  </div>
+</div>
+<div class="col-lg-4 property-section text-center">
+            <div class="property-panel-header mt-3 mb-3"><h3>
+                Reorder columns
+              </h3></div>
+            <div class="property-panel-section">
+                <table id="property" class="property-panel-table" title="Properties" style="width: 100%">
+                    <tr style="height: 50px">
+                        <td style="width: 30%">
+                            <div style="padding-top: 10px">Column</div>
+                        </td>
+                        <td style="width: 30%;padding-right: 10px">
+                            <div>
+                                    <ejs-dropdownlist #dropdown1 id='ddlelement' width= '120px' [dataSource]='d1data' [fields]='ddlfields' value='taskID' (change)="onChange($event)" ></ejs-dropdownlist>
+                                </div>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td style="width: 30%">
+                            <div>Column Index</div>
+                        </td>
+                        <td style="width: 30%;padding: 10px 10px 10px 0px">
+                            <div>
+                                    <ejs-dropdownlist #dropdown2 id='element' width= '120px' [dataSource]='d2data' [fields]='fields' value='0'  (change)="change($event)" ></ejs-dropdownlist>
+                                </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+</div>
+<div class="col-lg-4 property-section text-center">
+            <div class="property-panel-header mt-3 mb-3"><h3>
+                Show/Hide columns
+              </h3></div>
+          <div class="property-panel-section">
+              <table id="property" class="property-panel-table" title="Properties" style="width: 100%">
+                  <tr>
+                      <td style="width: 30%">
+                          <div>Column</div>
+                      </td>
+                      <td style="width: 70%;padding-right: 10px">
+                          <div id='columnddl'>
+                            <ejs-dropdownlist #dropdown3 id='ddlelement'  width= '120px' [dataSource]='d3data' [fields]='ddlfields' value='taskID' (change)="ShowHide($event)"></ejs-dropdownlist>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 30%;padding-top: 10px">
+                      <div>
+                        <button ejs-button #button1 cssClass="btn btn-default" content="HIDE" id="hide" (click)="onClicked()"></button>                          </div>
+                  </td>
+                  <td style="width: 70%;padding-top: 10px;padding-left: 7px">
+                      <div>
+                        <button ejs-button #button2 cssClass="btn btn-default"  content="SHOW" id="show" (click)="clicked($event)"></button>                          </div>
+                  </td>
+                  </tr>
+                  <tr>
+                      <td style="width: 30%">
+                          <div class="" style="padding-top: 10px">
+                              Hidden Columns
+                          </div>
+                      </td>
+                      <td style="width: 70%; padding:10px 10px 10px 0px">
+                          <div>
+                              <textarea id="hiddencolumns" style="resize: none;height:65px;width:100px;background-color: #fff; padding: 6px"
+                              class="form-control" readonly="readonly"></textarea>
+                          </div>
+                      </td>
+                  </tr>
+              </table>
+              </div>
+</div>
+</div> -->
+<!-- custom code start -->
+<style>
+    .grid-freezeprop {
+        padding-bottom: 5px;
+    }
+
+    .grid-freezecol {
+        display: inline-block;
+        padding-right: 10px;
+    }
+</style>
+<!-- custom code end -->
+<!--<script>
+    let colorPickerObj: ColorPicker = new ColorPicker(null, "#bgcolor-picker,#ftcolor-picker");
+
+</script>-->
